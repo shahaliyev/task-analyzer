@@ -9,7 +9,8 @@ if __name__ == '__main__':
     tasks_df = process_df(tasks_df)
     all_tasks = get_task_list(tasks_df)
     tasks, completed_tasks = split_tasks(all_tasks)
-    rank(tasks, verbose=True)
+    rank(tasks)
+   
    
 
 

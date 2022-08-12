@@ -14,7 +14,7 @@ class Task:
         status, 
         deadline,
     ) -> None:
-        self.title = title
+        self.title = title.capitalize()
         self.category = category
         self.urgency = urgency
         self.priority = priority
@@ -29,11 +29,13 @@ class Task:
         self.days_left = self.calc_days_left()
         self.hours_per_day = self.calc_hours_per_day()
 
-        self.passed_deadline = self.days_left < 0
-        self.discard = self.passed_deadline or (self.not_urgent and self.not_important)
-
         self.score = nan
         self.rank = nan
+
+        self.passed_deadline = self.days_left < 0
+        self.discard = self.passed_deadline or (self.not_urgent and self.not_important) or self.score < 0
+
+        self.issues = self.detect_issues()
 
 
     def calc_days_left(self):   
@@ -45,22 +47,35 @@ class Task:
 
     
     def __lt__(self, other):
-         return self.score < other.score
+        return self.score < other.score
 
     
-    def alarm(self):
+    def info(self):
+        info = ''
+        info = info + f'The task is titled as "{self.title}".\n'
+        info = info + f'Ranked {self.rank} with the score {self.score}.\n'
+        info = info + f'{self.days_left} days till its deadline.\n'
+        info = info + f'You need to spend about {self.hours_per_day} hours daily.\n'
+        info = info + f'Its discard flag is {self.discard}.'
+
+        return info
+
+
+    def detect_issues(self):
+        issues = ''
+
         if self.passed_deadline:
-            print(f'Deadline has passed. It\'s been {self.days_left} days since the deadline.')
+            issues = issues + f'Deadline has passed. It\'s been {abs(self.days_left)} days since the deadline.'
 
         if self.hours_per_day > 4:
-            print(f'Too much daily effort ({self.hours_per_day} hours). \
-                Extend deadline, reconsider total hourly effort, \
-                    or start working on the task more seriously.')
+            issues = issues + f'Too much daily effort ({self.hours_per_day} hours). Extend deadline, reconsider total hourly effort, or start working on the task more seriously.'
 
         if self.not_urgent and self.not_important:
-            print('The task is not urgent and not important. Consider discarding the task.')
+            issues = issues + 'The task is not urgent and not important. Consider discarding the task.'
 
         if self.score < 0:
-            print('Negative score. Consider discarding the task.')
-        
+            issues = issues + 'Negative score. Seriously consider discarding the task.'
 
+        return issues
+
+        
