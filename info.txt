@@ -9,10 +9,10 @@ Problems to solve:
     The ranking of the tasks - DONE BUT NEEDS IMPROVEMENT IN SCORING
     Reading list - DONE
     Top 10 challenging tasks
-    Top 10 urgent tasks
+    Top 10 urgent tasks - DONE
     Most important tasks
-    Which tasks to discard?
-    Completed tasks
+    Which tasks to discard? - DONE
+    Completed tasks - DONE
     Ongoing tasks
     New task to tackle?
     NAN values, incorrect data type (timestamps), completed tasks etc.

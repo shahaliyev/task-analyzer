@@ -46,10 +46,6 @@ class Task:
         return round(self.hours / self.days_left, 1) if self.days_left > 0 else nan
 
     
-    def __lt__(self, other):
-        return self.score < other.score
-
-    
     def info(self):
         info = ''
         info = info + f'The task is titled as "{self.title}".\n'

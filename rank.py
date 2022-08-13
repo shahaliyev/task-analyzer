@@ -1,10 +1,11 @@
 from score import score
+from utils import sort_tasks
 
-def rank(tasks, verbose=True):
+def rank(tasks, reverse=True, verbose=True):
     for task in tasks: 
         task.score = score(task)
 
-    tasks.sort(reverse=True)
+    sort_tasks(tasks, 'score', reverse=reverse)
 
     for rank, task in enumerate(tasks, start=1):
         task.rank = rank
