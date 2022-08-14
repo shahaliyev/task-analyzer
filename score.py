@@ -21,6 +21,7 @@ category_points = {
 
 
 deadline_points = {
+    1: 500,
     3: 350,
     5: 250,
     10: 200,
